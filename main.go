@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/SlaterRGordon/fut/database"
+	"github.com/SlaterRGordon/fut/router/auth"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -25,7 +26,7 @@ func main() {
 	})
 
 	// Setup Routes
-	// auth.SetupRoutes(app)
+	auth.SetupRoutes(app)
 
 	var port string
 	if port = os.Getenv("PORT"); port == "" {
