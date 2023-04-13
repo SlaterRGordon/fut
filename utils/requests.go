@@ -5,7 +5,16 @@ import (
 	"net/http"
 )
 
-func CreateRequest(method string, url string, body []byte, headers []Header) (*http.Response, error) {
+func SendPinEvent(pinByte []byte) (*http.Response, error) {
+	resp, err := CreateRequest("POST", "https://pin-river.data.ea.com/pinEvents", pinByte, PinHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
+func CreateRequest(method string, url string, body []byte, headers []KeyValue) (*http.Response, error) {
 	// create request
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
