@@ -2,11 +2,9 @@ package database
 
 import (
 	"context"
-	"log"
 	"os"
 	"time"
 
-	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -19,10 +17,6 @@ type MongoInstance struct {
 var Instance MongoInstance
 
 func Connect() error {
-	if err := godotenv.Load(); err != nil {
-		log.Println("No .env file found")
-	}
-
 	uri := os.Getenv("DATABASE_CONNECTION")
 	name := os.Getenv("DATABASE_NAME")
 

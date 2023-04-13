@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/SlaterRGordon/fut/database"
 	"github.com/SlaterRGordon/fut/router/auth"
+	"github.com/joho/godotenv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -13,6 +15,11 @@ import (
 )
 
 func main() {
+	// check env file
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found")
+	}
+
 	// connect to the database
 	database.Connect()
 
