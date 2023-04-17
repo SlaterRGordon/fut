@@ -1,11 +1,10 @@
-import { pinHeadersV1, pinHeadersV2, webAppHeaders, xhrHeadersV1, xhrHeadersV2 } from "./headers"
-import { keys } from "./keys"
-import { pinEventEnd, pinEventPageView, pinEventPageView2, pinEventPageView3, pinEventStart, pinEventUiInteract } from "./payloads"
+import { pinHeadersV1, pinHeadersV2, webAppHeaders, xhrHeadersV1, xhrHeadersV2 } from "./data/headers"
+import { keys } from "./data/keys"
+import { pinEventEnd, pinEventPageView, pinEventPageView2, pinEventPageView3, pinEventStart, pinEventUiInteract } from "./data/payloads"
 import { pinRequest, requestHttp1, requestHttp2 } from "./requests"
 import { addCookies, getCookies } from "./utils"
 import { AxiosResponse } from "axios"
 import * as readline from 'readline';
-
 
 var twoFactorRequest = {
     codeType: "EMAIL",
@@ -53,7 +52,7 @@ export async function login(): Promise<void> {
 }
 
 // handle email and password authentication
-export async function authenticate(email: string, password: string): Promise<AxiosResponse<any, any>> {
+async function authenticate(email: string, password: string): Promise<AxiosResponse<any, any>> {
     loginData.email = email
     loginData.password = password
 
@@ -196,7 +195,7 @@ export async function authenticate(email: string, password: string): Promise<Axi
 }
 
 // handle two factor authentication
-export async function twoFactor(code: string, url: string): Promise<AxiosResponse<any, any>> {
+async function twoFactor(code: string, url: string): Promise<AxiosResponse<any, any>> {
     twoFactorData["oneTimeCode"] = code
 
     var xHeaders = JSON.parse(JSON.stringify(xhrHeadersV1))

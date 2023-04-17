@@ -7,4 +7,8 @@ export var keys = {
     "access_token": "",
     "remid": "",
     "_nx_mpcid": "",
+    "pid": "",
+    "code": "",
+    "personaId": "",
+    "X-UT-SID": "",
 }

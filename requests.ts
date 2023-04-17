@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 import http2 from "http2";
 import { getTimeStamp } from "./utils";
+import { keys } from "./data/keys";
 
 async function delay(ms: number): Promise<void> {
     await new Promise((resolve) => setTimeout(()=>resolve(''), ms)).then(()=>{});
@@ -22,8 +23,14 @@ export async function requestHttp1(url: string, headers: any, body: any = {}, me
             }).catch(async (err) => {
                 resolve(err.response)
             })
-        } else {
+        } else if (method === "POST") {
             session.post("", body).then((resp) => {
+                resolve(resp)
+            }).catch(async (err) => {
+                resolve(err.response)
+            })
+        } else if (method === "OPTIONS") {
+            session.options("").then((resp) => {
                 resolve(resp)
             }).catch(async (err) => {
                 resolve(err.response)
@@ -59,6 +66,30 @@ export async function pinRequest(headers: any, body: any): Promise<boolean> {
 
     body.ts_post = getTimeStamp()
     body.events[0].core.ts_event = getTimeStamp()
+
+    return await new Promise((resolve) => {
+        session.post("", body).then((resp: AxiosResponse<any, any>) => {
+            resolve(resp.status === 200)
+        }).catch(async (err: AxiosError) => {
+            resolve(false)
+        })
+    })
+}
+
+export async function pinCoreRequest(headers: any, body: any): Promise<boolean> {
+    const session = axios.create({
+        baseURL: "https://pin-river.data.ea.com/pinEvents",
+        headers: headers
+    });
+
+    delay(1 + Math.random() / 50)
+
+    body.ts_post = getTimeStamp()
+    body.sid = keys["X-UT-SID"]
+    body.events[0].core.ts_event = getTimeStamp()
+    body.events[0].core.pid = keys["personaId"]
+    body.events[0].core.pidm.nucleus = keys["pid"]
+    body.events[0].core.userid = keys["personaId"]
 
     return await new Promise((resolve) => {
         session.post("", body).then((resp: AxiosResponse<any, any>) => {
