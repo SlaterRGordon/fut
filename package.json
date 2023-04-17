@@ -1,0 +1,28 @@
+{
+  "name": "fut",
+  "version": "1.0.0",
+  "description": "",
+  "main": "run.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SlaterRGordon/fut.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SlaterRGordon/fut/issues"
+  },
+  "homepage": "https://github.com/SlaterRGordon/fut#readme",
+  "dependencies": {
+    "@types/lodash": "^4.14.194",
+    "axios": "^1.3.5",
+    "date-fns": "^2.29.3",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11"
+  }
+}
